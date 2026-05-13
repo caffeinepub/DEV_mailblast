@@ -1,0 +1,72 @@
+type Timestamp = int;
+type SubscriberView = 
+ record {
+   dateAdded: Timestamp;
+   email: text;
+   id: SubscriberId;
+   name: text;
+   status: SubscriberStatus;
+ };
+type SubscriberStatus = 
+ variant {
+   subscribed;
+   unsubscribed;
+ };
+type SubscriberId = nat;
+type SendCampaignResult = 
+ variant {
+   err: text;
+   ok;
+ };
+type DashboardStats = 
+ record {
+   activeSubscribers: nat;
+   lastCampaign: opt CampaignView;
+   totalCampaignsSent: nat;
+   totalSubscribers: nat;
+ };
+type CreateCampaignResult = 
+ variant {
+   err: text;
+   ok: CampaignView;
+ };
+type CampaignView = 
+ record {
+   body: text;
+   id: CampaignId;
+   name: text;
+   recipientCount: nat;
+   senderName: text;
+   sentAt: opt Timestamp;
+   status: CampaignStatus;
+   subject: text;
+ };
+type CampaignStatus = 
+ variant {
+   draft;
+   sent;
+ };
+type CampaignId = nat;
+type AddSubscriberResult = 
+ variant {
+   err: text;
+   ok: SubscriberView;
+ };
+service : {
+  addSubscriber: (name: text, email: text) -> (AddSubscriberResult);
+  bulkImportSubscribers: (entries: vec record {
+                                         text;
+                                         text;
+                                       }) ->
+   (record {
+      imported: nat;
+      skipped: nat;
+    });
+  createCampaign: (name: text, subject: text, senderName: text, body:
+   text) -> (CreateCampaignResult);
+  getDashboardStats: () -> (DashboardStats) query;
+  listCampaigns: () -> (vec CampaignView) query;
+  listSubscribers: () -> (vec SubscriberView) query;
+  sendCampaign: (id: nat) -> (SendCampaignResult);
+  toggleSubscriberStatus: (id: nat) -> (opt SubscriberView);
+}

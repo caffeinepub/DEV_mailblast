@@ -1,0 +1,48 @@
+// Version: 1.0.0
+type CampaignId__756345304 = Nat;
+type CampaignStatus__153263443 = {#draft; #sent};
+type Campaign__66651877 =
+  {
+    var body : Text;
+    id : CampaignId__756345304;
+    var name : Text;
+    var recipientCount : Nat;
+    var senderName : Text;
+    var sentAt : ?Timestamp__301639476;
+    var status : CampaignStatus__153263443;
+    var subject : Text
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type SubscriberId__168974087 = Nat;
+type SubscriberStatus__931471799 = {#subscribed; #unsubscribed};
+type Subscriber__398228695 =
+  {
+    dateAdded : Timestamp__301639476;
+    var email : Text;
+    id : SubscriberId__168974087;
+    var name : Text;
+    var status : SubscriberStatus__931471799
+  };
+type Timestamp__301639476 = Int;
+actor {
+  stable campaigns :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Campaign__66651877]];
+      var elementIndex : Nat__490723111
+    };
+  stable emailMarketing :
+    actor {
+      sendBulkEmail :
+        shared (subject : Text, senderName : Text, htmlBody : Text,
+                recipients : [{email : Text; name : Text}]) ->
+          async {#err : Text; #ok}
+    };
+  stable subscribers :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Subscriber__398228695]];
+      var elementIndex : Nat__490723111
+    }
+};

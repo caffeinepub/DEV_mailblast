@@ -1,0 +1,20 @@
+{
+  "overview": "A full-stack marketing email app for managing subscriber lists, composing campaigns, and sending bulk marketing emails with unsubscribe support.",
+  "features": [
+    "Subscriber management with add, import, and unsubscribe controls",
+    "Campaign composer with subject, sender name, and rich text body",
+    "Draft and send campaigns to all active subscribers",
+    "Dashboard with subscriber and campaign stats",
+    "Sidebar navigation with responsive mobile layout",
+    "Unsubscribe link automatically included in every email"
+  ],
+  "category": "productivity",
+  "tags": [
+    "email",
+    "marketing",
+    "campaigns",
+    "subscribers",
+    "newsletter"
+  ],
+  "last_updated": "2026-03-31T13:23:49.488Z"
+}
